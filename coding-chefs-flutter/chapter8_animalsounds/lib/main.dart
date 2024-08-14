@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,11 @@ class MyApp extends StatelessWidget {
 class AnimalSounds extends StatelessWidget {
   const AnimalSounds({super.key});
 
+  void playSound(String name) {
+    final AudioPlayer player = AudioPlayer();
+    player.play(AssetSource('$name.wav'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +45,7 @@ class AnimalSounds extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -47,14 +54,19 @@ class AnimalSounds extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Image.asset(
-                      "images/bear.png",
-                      height: 100,
+                    GestureDetector(
+                      onTap: () {
+                        playSound('bear');
+                      },
+                      child: Image.asset(
+                        "images/bear.png",
+                        height: 100,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child:
-                          Container(width: 115, height: 2, color: Colors.green),
+                          Container(width: 115, height: 2, color: Colors.blue),
                     ),
                     const Text("Bear", style: TextStyle(fontSize: 20)),
                   ],
@@ -71,7 +83,7 @@ class AnimalSounds extends StatelessWidget {
                         bottom: 10,
                       ),
                       child:
-                          Container(width: 115, height: 2, color: Colors.green),
+                          Container(width: 115, height: 2, color: Colors.blue),
                     ),
                     const Text("Fox", style: TextStyle(fontSize: 20)),
                   ],
@@ -79,17 +91,63 @@ class AnimalSounds extends StatelessWidget {
               ],
             ),
           ),
-          const Row(
-            children: [
-              Column(),
-              Column(),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Image.asset("images/koala.png", height: 100),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child:
+                          Container(width: 115, height: 2, color: Colors.green),
+                    ),
+                    const Text("Koala", style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Image.asset("images/camel.png", height: 100),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child:
+                          Container(width: 115, height: 2, color: Colors.green),
+                    ),
+                    const Text("Camel", style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const Row(
-            children: [
-              Column(),
-              Column(),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Image.asset("images/lion.png", height: 100),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Container(
+                            width: 115, height: 2, color: Colors.orange)),
+                    const Text("Lion", style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Image.asset("images/tiger.png", height: 100),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Container(
+                            width: 115, height: 2, color: Colors.orange)),
+                    const Text("Tiger", style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
