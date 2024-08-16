@@ -73,9 +73,14 @@ class AnimalSounds extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Image.asset(
-                      "images/fox.png",
-                      height: 100,
+                    GestureDetector(
+                      onTap: () {
+                        playSound("fox");
+                      },
+                      child: Image.asset(
+                        "images/fox.png",
+                        height: 100,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -98,7 +103,11 @@ class AnimalSounds extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Image.asset("images/koala.png", height: 100),
+                    GestureDetector(
+                        onTap: () {
+                          playSound("koala");
+                        },
+                        child: Image.asset("images/koala.png", height: 100)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child:
@@ -109,7 +118,11 @@ class AnimalSounds extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Image.asset("images/camel.png", height: 100),
+                    GestureDetector(
+                        onTap: () {
+                          playSound("camel");
+                        },
+                        child: Image.asset("images/camel.png", height: 100)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child:
@@ -128,7 +141,11 @@ class AnimalSounds extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Image.asset("images/lion.png", height: 100),
+                    GestureDetector(
+                        onTap: () {
+                          playSound("lion");
+                        },
+                        child: Image.asset("images/lion.png", height: 100)),
                     Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Container(
@@ -138,7 +155,11 @@ class AnimalSounds extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Image.asset("images/tiger.png", height: 100),
+                    GestureDetector(
+                        onTap: () {
+                          playSound("tiget");
+                        },
+                        child: Image.asset("images/tiger.png", height: 100)),
                     Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Container(
