@@ -1,43 +1,75 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyPage());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyPage extends StatelessWidget {
+  const MyPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyParent(),
+    return MaterialApp(
+      theme: ThemeData(colorSchemeSeed: Colors.purple),
+      debugShowCheckedModeBanner: false,
+      home: const ParentWidget(),
     );
   }
 }
 
-class MyParent extends StatelessWidget {
-  const MyParent({super.key});
+class ParentWidget extends StatefulWidget {
+  const ParentWidget({super.key});
+
+  @override
+  State<ParentWidget> createState() => _ParentWidgetState();
+}
+
+class _ParentWidgetState extends State<ParentWidget> {
+  int data = 0;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text("Rebuilding Stateful Widget"),
+      ),
       body: Center(
-        child: MyStateless(title: "Hello, flutter!"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DataDisplay(data2: data),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  data += 1;
+                });
+              },
+              child: const Text("Update Data"),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class MyStateless extends StatelessWidget {
-  const MyStateless({super.key, required this.title});
+class DataDisplay extends StatefulWidget {
+  final int data2;
 
-  final String title;
+  const DataDisplay({super.key, required this.data2});
 
+  @override
+  State<DataDisplay> createState() => _DataDisplayState();
+}
+
+class _DataDisplayState extends State<DataDisplay> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      title,
-      style: const TextStyle(fontSize: 25),
+      "Received Data: ${widget.data2}",
+      style: const TextStyle(fontSize: 25, color: Colors.red),
     );
   }
 }
