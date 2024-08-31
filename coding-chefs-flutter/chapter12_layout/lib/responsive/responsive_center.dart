@@ -15,7 +15,9 @@ class ResponsiveCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+      //loose constraints 전달
       child: SizedBox(
+        //tight constraints 전달
         width: maxCountenWidth,
         child: Padding(
           padding: padding,
