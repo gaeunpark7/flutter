@@ -5,16 +5,21 @@ class Mytextfied extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.obscureText,
+    required this.controller,
+    required this.emailType,
   });
 
   final String hintText;
   final bool obscureText;
+  final TextEditingController controller;
+  final TextInputType? emailType;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
