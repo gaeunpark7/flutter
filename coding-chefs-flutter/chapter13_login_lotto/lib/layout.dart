@@ -1,7 +1,7 @@
+import 'package:chapter13_login_app/responsive/responsive_center.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'responsive/breakpoint.dart';
-import 'responsive/responsive_center.dart';
 
 class Layout extends StatelessWidget {
   const Layout({super.key});
@@ -13,6 +13,6 @@ class Layout extends StatelessWidget {
         body: const ResponsiveCenter(
             maxCoutenWidth: Breakpoint.deskTop,
             padding: EdgeInsets.all(16),
-            chiled: Login()));
+            child: Login()));
   }
 }

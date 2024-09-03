@@ -5,11 +5,11 @@ class ResponsiveCenter extends StatelessWidget {
       {super.key,
       required this.maxCoutenWidth,
       required this.padding,
-      required this.chiled});
+      required this.child});
 
   final double maxCoutenWidth;
   final EdgeInsetsGeometry padding;
-  final Widget chiled;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ResponsiveCenter extends StatelessWidget {
         width: maxCoutenWidth,
         child: Padding(
           padding: padding,
-          child: chiled,
+          child: child,
         ),
       ),
     );
