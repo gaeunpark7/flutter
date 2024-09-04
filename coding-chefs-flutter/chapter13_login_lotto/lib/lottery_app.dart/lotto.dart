@@ -15,6 +15,17 @@ class _LottoState extends State<Lotto> {
   void _createNumber() {
     setState(() {
       //로또 번호 생성 로직 구현
+      List<int> lottery = [];
+      while (true) {
+        var rnd = Random().nextInt(45) + 1;
+        if (!lottery.contains(rnd)) {
+          lottery.add(rnd);
+        }
+        if (lottery.length == 6) {
+          break;
+        }
+      }
+      listLottery.add(lottery);
     });
   }
 
@@ -23,6 +34,7 @@ class _LottoState extends State<Lotto> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("lotto app"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
       ),
       body: const Center(
