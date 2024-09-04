@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 
 class LottoBall extends StatelessWidget {
   const LottoBall({super.key, required this.path});
@@ -16,7 +17,7 @@ class LottoBall extends StatelessWidget {
         path, //이미지 경로
         colorFilter: const ColorFilter.mode(
           //SVG 이미지 색상 필터링 및 변경
-          Colors.black,
+          Colors.white,
           BlendMode.srcIn,
         ),
       ),

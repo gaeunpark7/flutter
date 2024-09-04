@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'lotto_ball.dart';
+import 'package:lottie/lottie.dart';
 
 class Lotto extends StatefulWidget {
   const Lotto({super.key});
@@ -37,50 +38,62 @@ class _LottoState extends State<Lotto> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("lotto app"),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color.fromARGB(255, 224, 179, 169),
         centerTitle: true,
       ),
+      backgroundColor: const Color.fromARGB(255, 104, 149, 212),
       body: Center(
-          child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: listLottery.length,
-              itemBuilder: (BuildContext context, int index) {
-                var path_1 = "svg/${listLottery[index][0]}.svg";
-                var path_2 = "svg/${listLottery[index][1]}.svg";
-                var path_3 = "svg/${listLottery[index][2]}.svg";
-                var path_4 = "svg/${listLottery[index][3]}.svg";
-                var path_5 = "svg/${listLottery[index][4]}.svg";
-                var path_6 = "svg/${listLottery[index][5]}.svg";
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      LottoBall(path: path_1),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      LottoBall(path: path_2),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      LottoBall(path: path_3),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      LottoBall(path: path_4),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      LottoBall(path: path_5),
-                      const SizedBox(
-                        width: 2,
-                      ),
-                      LottoBall(path: path_6),
-                    ],
-                  ),
-                );
-              })),
+          child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: listLottery.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var path_1 = "svg/${listLottery[index][0]}.svg";
+                  var path_2 = "svg/${listLottery[index][1]}.svg";
+                  var path_3 = "svg/${listLottery[index][2]}.svg";
+                  var path_4 = "svg/${listLottery[index][3]}.svg";
+                  var path_5 = "svg/${listLottery[index][4]}.svg";
+                  var path_6 = "svg/${listLottery[index][5]}.svg";
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        LottoBall(path: path_1),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        LottoBall(path: path_2),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        LottoBall(path: path_3),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        LottoBall(path: path_4),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        LottoBall(path: path_5),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        LottoBall(path: path_6),
+                      ],
+                    ),
+                  );
+                }),
+          ),
+          SizedBox(
+            width: 150,
+            height: 150,
+            child: Lottie.asset("lottie/boxcat-anmation.json"),
+          )
+        ],
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: _createNumber,
         child: const Icon(Icons.add),

@@ -33,6 +33,7 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 86, 113, 135),
         centerTitle: true,
       ),
+      backgroundColor: const Color.fromARGB(255, 8, 42, 73),
       body: ListView.separated(
         itemCount: items.length, //몇개의 항목을 표시할지
         itemBuilder: (BuildContext context, int index) {
