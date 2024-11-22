@@ -1,0 +1,23 @@
+void main() {
+  Function f1 = dispMsg; //함수참조
+  cook(myCook); //강한불에 1분 볶는다 출력
+  f1("홍길동 고객님이 입장하셨습니다.");
+
+  // cook((value) {
+  //   //익명함수 value = "볶는다."
+  //   print("강한불에 1분 $value");
+  // });
+}
+
+void myCook(String value) {
+  print("강한불에 1분 $value");
+}
+
+void cook(Function(String str) f1) {
+  print("cook 함수가 호출됨");
+  f1("볶는다.");
+}
+
+void dispMsg(String msg) {
+  print("메세지: $msg");
+}
