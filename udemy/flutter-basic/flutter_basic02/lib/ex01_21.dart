@@ -26,13 +26,15 @@ class MyHomePage extends StatelessWidget {
           title: const Text("위치, 크기 조정"),
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
-        body: Align(
-          alignment: Alignment.bottomRight,
-          child: Container(
-            color: Colors.red,
-            width: 100,
-            height: 100,
-          ),
+        body: Column(
+          children: [
+            SizedBox(
+              width: 300,
+              height: 50,
+              child: ElevatedButton(
+                  onPressed: () {}, child: const Text("Click me")),
+            ),
+          ],
         ));
   }
 }
