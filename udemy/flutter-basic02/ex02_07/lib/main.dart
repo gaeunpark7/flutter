@@ -39,7 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(children: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => const Page1()));
             },
             child: const Text("페이지 1"),
           ),
