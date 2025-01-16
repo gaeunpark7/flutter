@@ -37,6 +37,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late int _selectIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectIndex = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,16 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: "쇼핑"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "카트"),
-          // BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: "카트2"),
         ],
         selectedItemColor: Colors.purple, // 선택된 항목 아이콘 색상
         unselectedItemColor: Colors.grey, // 선택되지 않은 항목 아이콘 색상
         showUnselectedLabels: true,
 
         onTap: (index) {
-          print("42 ${index}");
+          print("42 $index");
+          setState(() {
+            _selectIndex = index;
+          });
         },
-        currentIndex: 1,
+        currentIndex: _selectIndex,
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {}),
     );

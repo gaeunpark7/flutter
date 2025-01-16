@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   var user = User(sn: 12, name: "홍길동", age: 17);
                   var ret = await Navigator.pushNamed(context, Page1.route,
                       arguments: user);
-                  print("59-page1 ret: $ret");
+                  print("59-page1 ret: $ret"); //결과값 호출
                 },
                 child: const Text("page 1")),
             ElevatedButton(
