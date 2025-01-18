@@ -1,3 +1,7 @@
+import 'package:ex02_09/GB.dart';
+import 'package:ex02_09/page1.dart';
+import 'package:ex02_09/page2.dart';
+import 'package:ex02_09/page3..dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -37,7 +41,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late int _selectIndex;
+  int _selectIndex = 0;
+
+  var pages = [const Page1(), const Page2(), const Page3()];
 
   @override
   void initState() {
@@ -49,19 +55,33 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        title: Text(
           "농담곰 쇼핑몰",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: GB.mainColor),
         ),
+        centerTitle: true,
+        leading: IconButton(
+            //왼쪽
+            onPressed: () {
+              print("메뉴 클릭!");
+            },
+            icon: Icon(
+              Icons.menu,
+              color: GB.mainColor,
+            )),
+        //오른쪽
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list_alt)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+        ],
       ),
-      body: Container(),
+      body: pages[_selectIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "홈"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: "쇼핑"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "카트"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: "카트2"),
         ],
         selectedItemColor: Colors.purple, // 선택된 항목 아이콘 색상
         unselectedItemColor: Colors.grey, // 선택되지 않은 항목 아이콘 색상
