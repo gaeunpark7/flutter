@@ -12,6 +12,9 @@ class _BmiPageState extends State<BmiPage> {
   var txtheight = TextEditingController();
   var txtweight = TextEditingController();
 
+  var strResult;
+  var db_bmi = 0.0;
+
   @override
   void dispose() {
     txtheight.dispose();
@@ -36,7 +39,7 @@ class _BmiPageState extends State<BmiPage> {
                       if (value == null || value.isEmpty) {
                         return "키를 입력해주세요";
                       }
-                      //에러 문자자
+                      //에러 문자
                       try {
                         var ret = int.parse(value);
                       } catch (e) {
@@ -70,17 +73,68 @@ class _BmiPageState extends State<BmiPage> {
                         labelText: "몸무게",
                         hintText: "몸무게를 kg 단위로 입력해주세요"),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        if (keyForm.currentState!.validate()) {
-                          print("58: 검증완료");
-                        }
-                      },
-                      child: const Text("결과보기"))
-                ]))
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (keyForm.currentState!.validate()) {
+                            print("58: 검증완료");
+                            print("91 = 키 ${txtheight.text}");
+                            print("92 = 몸무게 ${txtweight.text}");
+
+                            int intweight =
+                                int.parse(txtweight.text.trim()); //trim() 공백제거
+                            int intheigh = int.parse(txtheight.text.trim());
+
+                            db_bmi = (intweight /
+                                ((intheigh / 100) * (intheigh / 100)));
+
+                            setState(() {});
+                          }
+                        },
+                        child: const Text("결과보기")),
+                  )
+                ])),
+            const SizedBox(height: 50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("결과: "),
+                Text(
+                    "${getBmiString(db_bmi)}  ${db_bmi.toString().substring(0, 5)}",
+                    style: TextStyle(fontSize: 15, color: bmiColor(db_bmi)))
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  String getBmiString(double dbBmi) {
+    if (dbBmi == 0.0) return "";
+
+    if (dbBmi >= 25) {
+      return "비만";
+    } else if (dbBmi >= 23) {
+      return "과체중";
+    } else if (dbBmi >= 18.5) {
+      return "정상";
+    } else
+      return "저체중";
+  }
+
+  bmiColor(double dbBmi) {
+    if (dbBmi == 0.0) return Colors.black;
+
+    if (dbBmi >= 25) {
+      return Colors.red;
+    } else if (dbBmi >= 23) {
+      return Colors.deepOrange;
+    } else if (dbBmi >= 18.5) {
+      return Colors.black;
+    } else
+      return const Color.fromARGB(255, 130, 126, 95);
   }
 }

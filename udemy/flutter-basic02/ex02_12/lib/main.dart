@@ -73,7 +73,7 @@ class _MyPageState extends State<MyPage> {
                         disabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.orange),
                         ),
-                        //기본 컬러러
+                        //기본 컬러
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.purple),
                         ),
