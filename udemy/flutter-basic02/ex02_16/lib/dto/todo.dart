@@ -5,5 +5,6 @@ class Todo {
   //할일 제목
   String title = "";
 
-  Todo(this.title);
+  Todo(this.title, {this.isDone = false} //생략 가능
+      );
 }

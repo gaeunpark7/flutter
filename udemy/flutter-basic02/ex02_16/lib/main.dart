@@ -1,7 +1,11 @@
 import 'package:ex02_16/dto/todo.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -74,8 +78,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: ListView(
-                  children: buildTodoList(),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream:
+                      FirebaseFirestore.instance.collection("todo").snapshots(),
+                  builder: (context, snapshot) {
+                    //데이터가 없을 때
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator.adaptive();
+                    }
+                    var docs = snapshot.data!.docs;
+
+                    print("92: $docs");
+
+                    return ListView(
+                      children: buildTodoList(),
+                    );
+                  },
                 ),
               )
             ],
@@ -91,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: GestureDetector(
             onTap: () {
               print("100: ${e.title} 클릭");
-              e.isDone = !e.isDone; //완료 여부
+              changeDone(e); //완료 여부
               setState(() {});
             },
             child: Text(e.title,
@@ -113,9 +131,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
+  void changeDone(Todo e) {
+    e.isDone = !e.isDone;
+  }
+
   //추가
   addTodo(String todo) {
-    lst.add(Todo(todo));
+    if (todo.trim() != "") {
+      //공백제거
+      lst.add(Todo(todo));
+    }
   }
 
   //삭제
