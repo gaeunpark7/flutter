@@ -42,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    lst.add(Todo("청소"));
-    lst.add(Todo("공부"));
+    // lst.add(Todo("청소"));
+    // lst.add(Todo("공부"));
   }
 
   @override
@@ -78,20 +78,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(
+                child: StreamBuilder(
                   stream:
                       FirebaseFirestore.instance.collection("todo").snapshots(),
                   builder: (context, snapshot) {
                     //데이터가 없을 때
                     if (!snapshot.hasData) {
-                      return CircularProgressIndicator.adaptive();
+                      return CircularProgressIndicator();
                     }
                     var docs = snapshot.data!.docs;
 
                     print("92: $docs");
 
                     return ListView(
-                      children: buildTodoList(),
+                      children: buildTodoList(docs),
                     );
                   },
                 ),
@@ -101,19 +101,23 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  buildTodoList() {
-    return lst.map((e) {
+  List<Widget> buildTodoList(lst) {
+    for (var item in lst) {
+      print("117: ${item['title']}");
+    }
+    // return Container();
+    return lst.map<Widget>((e) {
       return Row(
         children: [
           Expanded(
               child: GestureDetector(
             onTap: () {
-              print("100: ${e.title} 클릭");
+              // print("100: ${['title']} 클릭");
               changeDone(e); //완료 여부
               setState(() {});
             },
-            child: Text(e.title,
-                style: e.isDone
+            child: Text(e['title'],
+                style: e['isDone']
                     ? const TextStyle(
                         decoration: TextDecoration.lineThrough,
                         fontStyle: FontStyle.italic)
@@ -132,19 +136,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void changeDone(Todo e) {
-    e.isDone = !e.isDone;
+    // e.isDone = !e.isDone;
   }
 
   //추가
   addTodo(String todo) {
     if (todo.trim() != "") {
       //공백제거
-      lst.add(Todo(todo));
+      // lst.add(Todo(todo));
     }
   }
 
   //삭제
   deleteTodo(Todo item) {
-    lst.remove(item);
+    // lst.remove(item);
   }
 }
