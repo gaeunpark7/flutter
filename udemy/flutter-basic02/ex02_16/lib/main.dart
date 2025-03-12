@@ -102,9 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> buildTodoList(lst) {
-    for (var item in lst) {
-      print("117: ${item['title']}");
-    }
     // return Container();
     return lst.map<Widget>((e) {
       return Row(
@@ -116,16 +113,26 @@ class _MyHomePageState extends State<MyHomePage> {
               changeDone(e); //완료 여부
               setState(() {});
             },
-            child: Text(e['title'],
-                style: e['isDone']
-                    ? const TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        fontStyle: FontStyle.italic)
-                    : null),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.5,
+                  child: Text(e['title'],
+                      style: e['isDone'] == true
+                          ? const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              fontStyle: FontStyle.italic)
+                          : null),
+                ),
+                SizedBox(width: 20),
+                Text("${e['createDate'].toString().substring(0, 4)}"
+                    ".${e['createDate'].toString().substring(4, 6)}"
+                    ".${e['createDate'].toString().substring(6)}"),
+              ],
+            ),
           )),
           IconButton(
               onPressed: () {
-                print("103:${e.title} delete");
                 deleteTodo(e); //지우기
                 setState(() {});
               },
@@ -135,20 +142,37 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void changeDone(Todo e) {
-    // e.isDone = !e.isDone;
+//JsonQueryDocumentSnapshot
+  void changeDone(DocumentSnapshot e) {
+    print("153: ${e.id}");
+
+    FirebaseFirestore.instance
+        .collection('todo')
+        .doc(e.id)
+        .update({'isDone': !e['isDone']});
   }
 
   //추가
-  addTodo(String todo) {
-    if (todo.trim() != "") {
-      //공백제거
-      // lst.add(Todo(todo));
+  addTodo(String title) {
+    if (title.trim() != "") {
+      FirebaseFirestore.instance
+          .collection('todo')
+          .add({'title': title, 'isDone': false, 'createDate': getNow()});
     }
   }
 
   //삭제
-  deleteTodo(Todo item) {
-    // lst.remove(item);
+  deleteTodo(DocumentSnapshot item) {
+    FirebaseFirestore.instance.collection('todo').doc(item.id).delete();
+  }
+
+  getNow() {
+    String strRet = "";
+
+    strRet = DateTime.now().year.toString();
+    strRet += DateTime.now().month.toString().padLeft(2, "0");
+    strRet += DateTime.now().day.toString().padLeft(2, "0");
+
+    return strRet;
   }
 }
