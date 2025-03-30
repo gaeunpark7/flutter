@@ -56,7 +56,7 @@ flutter:
   assets:
     - assets/images/
   fonts:
-    - family: Nanuma
+    - family: Nanum
       fonts:
         - asset: assets/fonts/NanumGothic-Regular.ttf
         - asset: assets/fonts/NanumGothic-Bold.ttf

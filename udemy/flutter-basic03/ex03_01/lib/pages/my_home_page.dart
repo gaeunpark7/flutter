@@ -1,3 +1,5 @@
+import 'package:ex03_01/components/food_list.dart';
+import 'package:ex03_01/components/food_menu.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -17,12 +19,16 @@ class MyHomePage extends StatelessWidget {
           const Icon(Icons.timer),
         ],
       ),
-      body: const Column(
-        children: [
-          Text("메뉴판", style: TextStyle(fontSize: 24, fontFamily: "Nanum")),
-          Icon(Icons.ac_unit),
-          Text("전체메뉴"),
-        ],
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Text("메뉴판", style: TextStyle(fontSize: 24, fontFamily: "Nanum")),
+            SizedBox(height: 20),
+            FoodList(),
+          ],
+        ),
       ),
     ));
   }
