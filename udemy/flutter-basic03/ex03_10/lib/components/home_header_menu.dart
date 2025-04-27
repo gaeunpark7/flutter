@@ -38,7 +38,7 @@ class _HomeHeaderMenuState extends State<HomeHeaderMenu> {
             const Spacer(),
             Text("추천여행", style: MyStyle.subtitle()),
             SizedBox(width: MySize.size_s),
-            Text("로그인", style: MyStyle.subtitle()),
+            // Text("로그인", style: MyStyle.subtitle()),
             SizedBox(width: MySize.size_s),
             //회원가입
             InkWell(

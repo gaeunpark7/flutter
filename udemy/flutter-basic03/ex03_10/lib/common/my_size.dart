@@ -13,6 +13,8 @@ class MySize {
     return MediaQuery.of(ctx).size;
   }
 
+  static Size screenSize = const Size(0, 0);
+
   //메인 이미지 높이
   static double header_height = 500;
 }

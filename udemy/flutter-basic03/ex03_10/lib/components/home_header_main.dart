@@ -1,6 +1,6 @@
 import 'package:ex03_10/common/my_size.dart';
 import 'package:ex03_10/common/my_style.dart';
-import 'package:ex03_10/common/my_text_form_feild.dart';
+import 'package:ex03_10/common/my_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeaderMain extends StatefulWidget {
@@ -11,6 +11,7 @@ class HomeHeaderMain extends StatefulWidget {
 }
 
 class _HomeHeaderMainState extends State<HomeHeaderMain> {
+  final _key = GlobalKey<FormState>();
   var txtArea = TextEditingController();
   var txtStartDate = TextEditingController();
   var txtEndDate = TextEditingController();
@@ -32,17 +33,22 @@ class _HomeHeaderMainState extends State<HomeHeaderMain> {
 
   _buildForm() {
     return Align(
-      alignment: const Alignment(0, 0),
+      alignment: MediaQuery.of(context).size.width > 480
+          ? const Alignment(0, 0)
+          : const Alignment(0, 0),
       child: Container(
         color: Colors.white,
         width: 300,
-        height: 400,
+        height: 350,
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: Column(
             children: [
               buildTitle(),
+              SizedBox(height: MySize.size_m),
               buildTextForm(),
+              SizedBox(height: MySize.size_m),
+              _buildButton()
             ],
           ),
         ),
@@ -68,28 +74,77 @@ class _HomeHeaderMainState extends State<HomeHeaderMain> {
 
   buildTextForm() {
     return Form(
+      key: _key,
       child: Column(
         children: [
-          MyTextFormField(controller: txtArea, title: "지역"),
+          MyTextFormField(
+            controller: txtArea,
+            title: "지역",
+            hint: "원하시는 지역을 입력해주세요.",
+            borders: const [10, 10, 0, 0],
+            borderSide: const [1, 1, 1, 1],
+          ),
           Row(
             children: [
               Expanded(
-                  child:
-                      MyTextFormField(controller: txtStartDate, title: "체크인")),
+                  child: MyTextFormField(
+                controller: txtStartDate,
+                title: "체크인",
+                hint: "2025.06.02",
+                borders: const [0, 0, 0, 0],
+                borderSide: const [1, 0, 1, 0],
+              )),
               Expanded(
-                  child:
-                      MyTextFormField(controller: txtEndDate, title: "체크아웃")),
+                  child: MyTextFormField(
+                controller: txtEndDate,
+                title: "체크아웃",
+                hint: "2025.06.30",
+                borders: const [0, 0, 0, 0],
+                borderSide: const [0, 0, 1, 0],
+              )),
             ],
           ),
           Row(
             children: [
               Expanded(
-                  child: MyTextFormField(controller: txtManCount, title: "성인")),
+                  child: MyTextFormField(
+                controller: txtManCount,
+                title: "성인",
+                hint: "2",
+                borders: const [0, 0, 10, 0],
+                borderSide: const [1, 1, 1, 1],
+              )),
               Expanded(
-                  child: MyTextFormField(controller: txtKidCount, title: "이동")),
+                  child: MyTextFormField(
+                controller: txtKidCount,
+                title: "아동",
+                hint: "아동",
+                borders: const [0, 0, 0, 10],
+                borderSide: const [1, 1, 1, 1],
+              )),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  _buildButton() {
+    return SizedBox(
+      width: 280,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: () {
+          if (_key.currentState!.validate()) {
+            print("135:지역 ${txtArea.text}");
+            print("136:시작일 ${txtStartDate.text}-종료일 ${txtEndDate.text} ");
+            print("137:인원 - 성인: ${txtManCount.text} 아동: ${txtKidCount.text}");
+          }
+        },
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(Colors.blue),
+        ),
+        child: const Text("예약하기", style: TextStyle(color: Colors.white)),
       ),
     );
   }

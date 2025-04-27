@@ -36,4 +36,8 @@ class MyStyle {
   static TextStyle body2({color = Colors.black87}) {
     return TextStyle(fontSize: 14, color: color);
   }
+
+  static TextStyle formFieldTitle({color = Colors.black87}) {
+    return TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold);
+  }
 }
