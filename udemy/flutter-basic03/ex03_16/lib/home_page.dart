@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/predictive_back_event.dart';
 import 'package:shake/shake.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,13 +11,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  late ShakeDetector detector;
   int count = 0;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     super.initState();
-    ShakeDetector detector = ShakeDetector.autoStart(
+
+    detector = ShakeDetector.waitForStart(
       onPhoneShake: (ShakeEvent event) {
         print('Shake detected!');
         count++;
@@ -22,6 +29,12 @@ class _HomePageState extends State<HomePage> {
       },
       shakeThresholdGravity: 1.2,
     );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -44,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Text("뚜벅"),
               ),
+              const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
                   count = 0;
@@ -51,10 +65,50 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Text("초기화"),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      detector.startListening();
+                      setState(() {});
+                    },
+                    child: Text("만보기 실행"),
+                  ),
+                  const SizedBox(width: 10),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      detector.stopListening();
+                      setState(() {});
+                    },
+                    child: Text("만보기 중지"),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("105 - didChangeAppLifecyceState: $state");
+    switch (state) {
+      //일시정지
+      case AppLifecycleState.paused:
+        detector.stopListening();
+        break;
+
+      //재활성화
+      case AppLifecycleState.resumed:
+        detector.startListening();
+        break;
+
+      default:
+        break;
+    }
   }
 }
