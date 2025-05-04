@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/component/textform.dart';
+import 'package:login/pages/sing_up_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
@@ -53,11 +54,39 @@ class _LoginPageState extends State<LoginPage> {
                   "로그인",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 35),
                 Textform(txtController: txtId, title: "아이디"),
                 const SizedBox(height: 10),
                 Textform(txtController: txtPwd, title: "비밀번호"),
-                SizedBox(height: 30),
+                SizedBox(height: 25),
+                Row(
+                  children: [
+                    Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (ctx) => SingUpPage()),
+                        );
+                      },
+                      child: Text(
+                        "회원가입",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text("|"),
+                    const SizedBox(width: 10),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "비밀번호 찾기",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Spacer(),
+                  ],
+                ),
                 SizedBox(
                   width: 380,
                   height: 50,
