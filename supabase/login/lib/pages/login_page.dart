@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/component/textform.dart';
+import 'package:login/pages/home_page.dart';
 import 'package:login/pages/sing_up_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,15 +21,31 @@ class _LoginPageState extends State<LoginPage> {
     final email = txtId.text;
     final password = txtPwd.text;
 
-    final response = await Supabase.instance.client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
 
-    if (response.user != null) {
-      print('로그인 성공!');
-    } else {
-      print('로그인 실패!');
+      if (response.user != null) {
+        print('로그인 성공!');
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("로그인 성공!")));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (ctx) => HomePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.")));
+      }
+    } catch (e) {
+      print("로그인 에러:$e");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("로그인 중 오류가 발생했습니다.")));
     }
   }
 
