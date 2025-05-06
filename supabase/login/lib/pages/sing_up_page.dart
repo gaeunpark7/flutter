@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/component/textform.dart';
+import 'package:login/pages/email_verify_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SingUpPage extends StatefulWidget {
@@ -24,13 +25,18 @@ class _SingUpPageState extends State<SingUpPage> {
       final response = await Supabase.instance.client.auth.signUp(
         email: email,
         password: password,
+        emailRedirectTo: 'com.gaeun.app://login-callback', //딥 링크
       );
 
       if (response.user != null) {
-        ScaffoldMessenger.of(
+        Navigator.pushReplacement(
           context,
-        ).showSnackBar(SnackBar(content: Text("회원가입 성공!")));
-        Navigator.pop(context);
+          MaterialPageRoute(builder: (ctx) => EmailVerifyPage()),
+        );
+        // ScaffoldMessenger.of(
+        //   context,
+        // ).showSnackBar(SnackBar(content: Text("회원가입 성공!")));
+        // Navigator.pop(context);
       }
     } catch (e) {
       ScaffoldMessenger.of(

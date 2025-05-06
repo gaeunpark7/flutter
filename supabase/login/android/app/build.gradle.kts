@@ -6,10 +6,9 @@ plugins {
 }
 
 android {
-    namespace = "com.example.login"
+    namespace = "com.gaeun.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
