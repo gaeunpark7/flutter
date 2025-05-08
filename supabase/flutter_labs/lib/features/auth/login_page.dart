@@ -44,29 +44,25 @@ class _LoginPageState extends State<LoginPage> {
   //구글 로그인
   Future<void> _signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return;
-      }
-      // 구글 사용자 정보
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
       // supabase 구글 로그인 안증
-      final response = await Supabase.instance.client.auth.signInWithOAuth(
+      await Supabase.instance.client.auth.signInWithOAuth(
         OAuthProvider.google,
+        redirectTo: 'com.example.flutter_labs://login-callback',
       );
-      //  if (response.error == null && response.dart?.user != null) {
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
-      //   Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(builder: (ctx) => MainPage()),
-      //   );
-      // } else {
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("구글 로그인 실패")));
-      // }
-    } catch (error) {
-      print('로그인 오류: $error');
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (ctx) => MainPage()),
+      );
+    } catch (e) {
+      print('로그인 오류: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("구글 로그인실패")));
     }
   }
 
@@ -129,7 +125,11 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           _signInWithGoogle();
                         },
-                        child: Text("구글 로그인"),
+                        child: Image.asset(
+                          "assets/icons/google.png",
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
                     ],
                   ),

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final session = Supabase.instance.client;
+    final session = Supabase.instance.client.auth.currentSession;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
