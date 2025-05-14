@@ -54,10 +54,10 @@ class _LoginPageState extends State<LoginPage> {
         context,
       ).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (ctx) => MainPage()),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (ctx) => MainPage()),
+      // );
     } catch (e) {
       print('로그인 오류: $e');
       ScaffoldMessenger.of(
@@ -78,97 +78,100 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Center(
-          child: Form(
-            key: formkey,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Spacer(),
-                  Text(
-                    "로그인",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 35),
-                  MyTextform(txtController: txtId, title: "아이디"),
-                  const SizedBox(height: 10),
-                  MyTextform(txtController: txtPwd, title: "비밀번호"),
-                  SizedBox(height: 25),
-                  Row(
-                    children: [
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (ctx) => SingupPage()),
-                          );
-                        },
-                        child: Text(
-                          "회원가입",
-                          style: TextStyle(color: Colors.black),
-                        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Form(
+              key: formkey,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    // Spacer(),
+                    const SizedBox(height: 30),
+                    Text(
+                      "로그인",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(width: 10),
-                      Text("|"),
-                      const SizedBox(width: 10),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "비밀번호 찾기",
-                          style: TextStyle(color: Colors.black),
+                    ),
+                    const SizedBox(height: 35),
+                    MyTextform(txtController: txtId, title: "아이디"),
+                    const SizedBox(height: 10),
+                    MyTextform(txtController: txtPwd, title: "비밀번호"),
+                    SizedBox(height: 25),
+                    Row(
+                      children: [
+                        // Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (ctx) => SingupPage()),
+                            );
+                          },
+                          child: Text(
+                            "회원가입",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          _signInWithGoogle();
-                        },
-                        child: Image.asset(
-                          "assets/icons/google.png",
-                          width: 30,
-                          height: 30,
+                        const SizedBox(width: 10),
+                        Text("|"),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "비밀번호 찾기",
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 380,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.black,
-                      ),
+                      ],
+                    ),
+                    ElevatedButton(
                       onPressed: () {
-                        if (formkey.currentState!.validate()) {
-                          login();
-                          // print("id:$txtId pwd:$txtPwd");
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("로그인 실패: 아이디 또는 비밀번호를 확인하세요"),
-                            ),
-                          );
-                        }
-                        return;
+                        _signInWithGoogle();
                       },
-
-                      child: Text(
-                        "로그인",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                      child: Image.asset(
+                        "assets/icons/google.png",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 380,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.black,
+                        ),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            login();
+                            // print("id:$txtId pwd:$txtPwd");
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("로그인 실패: 아이디 또는 비밀번호를 확인하세요"),
+                              ),
+                            );
+                          }
+                          return;
+                        },
+                        child: Text(
+                          "로그인",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Spacer(),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
