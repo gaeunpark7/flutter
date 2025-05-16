@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class MyTextform extends StatefulWidget {
   var txtController = TextEditingController();
   String title;
-  MyTextform({super.key, required this.txtController, required this.title});
+  int? maxLength;
+  MyTextform({
+    super.key,
+    required this.txtController,
+    required this.title,
+    this.maxLength,
+  });
 
   @override
   State<MyTextform> createState() => _MyTextformState();
@@ -37,6 +43,7 @@ class _MyTextformState extends State<MyTextform> {
         ),
         hintText: widget.title,
       ),
+      maxLength: widget.maxLength,
     );
   }
 }

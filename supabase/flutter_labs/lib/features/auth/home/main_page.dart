@@ -46,7 +46,8 @@ class _MainPageState extends State<MainPage>
           },
           currentIndex: _currentIndex, //현재 선택된 인덱스
           type: BottomNavigationBarType.fixed,
-          selectedFontSize: 10, // 선택된 아이템과 비선택된 아이템의 텍스트 크기 지정
+          selectedItemColor: Colors.blueGrey,
+          selectedFontSize: 10,
           unselectedFontSize: 10,
           items:
               navItems
@@ -67,6 +68,8 @@ class _MainPageState extends State<MainPage>
         ),
 
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blueGrey,
+          shape: CircleBorder(),
           onPressed: () {
             Navigator.push(
               context,

@@ -16,17 +16,27 @@ class _AddPostPageState extends State<AddPostPage> {
 
   Future<void> _addPost() async {
     final supabase = Supabase.instance.client;
+    final user = supabase.auth.currentUser;
+
+    if (user == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("로그인이 필요합니다.")));
+      return;
+    }
 
     try {
       final response = await supabase.from('posts').insert({
         'title': titleController.text,
         'content': descriptionController.text,
+        'user_id': user.id,
       });
 
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("게시물이 성공적으로 추가되었습니다.")));
 
+      print(response);
       //입력필드 초기화
       titleController.clear();
       descriptionController.clear();

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_labs/features/auth/home/main_page.dart';
+import 'package:flutter_labs/features/auth/home/profile_page.dart';
 import 'package:flutter_labs/features/auth/singup_page.dart';
 import 'package:flutter_labs/shared/component/my_textform.dart';
+// import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -19,22 +21,24 @@ class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>['email']);
 
   Future<void> login() async {
-    final email = txtId.text;
-    final password = txtPwd.text;
-    final response = await Supabase.instance.client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
-
-    if (response.user != null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("로그인 성공!")));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (ctx) => MainPage()),
+    try {
+      final email = txtId.text;
+      final password = txtPwd.text;
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
       );
-    } else {
+
+      if (response.user != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("로그인 성공!")));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (ctx) => MainPage()),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.")));
@@ -47,17 +51,48 @@ class _LoginPageState extends State<LoginPage> {
       // supabase 구글 로그인 안증
       await Supabase.instance.client.auth.signInWithOAuth(
         OAuthProvider.google,
-        redirectTo: 'com.example.flutter_labs://login-callback',
+        redirectTo: 'com.example.flutterlabs://login-callback',
       );
+      // 로그인 성공 후 유저 정보 가져오기
+      final user = Supabase.instance.client.auth.currentUser;
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
+      if (user == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("유저 정보를 불러올 수 없습니다.")));
+        return;
+      }
+      // users 테이블에서 유저 존재 확인
+      final existingUser =
+          await Supabase.instance.client
+              .from('users')
+              .select()
+              .eq('id', user.id)
+              .maybeSingle();
 
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (ctx) => MainPage()),
-      // );
+      if (existingUser == null) {
+        // 없으면 users 테이블에 등록
+        await Supabase.instance.client.from('users').insert({
+          'id': user.id,
+          'email': user.email,
+          // 'nickname': "", // 나중에 설정하게 할 수도 있음
+        });
+
+        // ScaffoldMessenger.of(
+        //   context,
+        // ).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (ctx) => ProfilePage()),
+        );
+      } else {
+        //있으면 메인 페이지
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (ctx) => MainPage()),
+        );
+      }
     } catch (e) {
       print('로그인 오류: $e');
       ScaffoldMessenger.of(
