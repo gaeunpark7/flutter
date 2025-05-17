@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_labs/features/auth/home/main_page.dart';
-import 'package:flutter_labs/features/auth/home/profile_page.dart';
+import 'package:flutter_labs/features/board/main_page.dart';
+import 'package:flutter_labs/features/auth/profile_page.dart';
 import 'package:flutter_labs/features/auth/singup_page.dart';
 import 'package:flutter_labs/shared/component/my_textform.dart';
 // import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
@@ -75,7 +75,6 @@ class _LoginPageState extends State<LoginPage> {
         await Supabase.instance.client.from('users').insert({
           'id': user.id,
           'email': user.email,
-          // 'nickname': "", // 나중에 설정하게 할 수도 있음
         });
 
         // ScaffoldMessenger.of(

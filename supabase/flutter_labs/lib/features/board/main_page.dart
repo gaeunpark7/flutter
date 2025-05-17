@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_labs/features/auth/home/add_post_page.dart';
-import 'package:flutter_labs/features/auth/home/community_board.dart';
-import 'package:flutter_labs/features/auth/home/my_page.dart';
+import 'package:flutter_labs/features/board/add_post_page.dart';
+import 'package:flutter_labs/features/board/community_board.dart';
+import 'package:flutter_labs/myPage/my_page.dart';
 import 'package:flutter_labs/shared/component/my_bottom.dart';
 
 class MainPage extends StatefulWidget {
@@ -47,6 +47,7 @@ class _MainPageState extends State<MainPage>
           currentIndex: _currentIndex, //현재 선택된 인덱스
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blueGrey,
+          backgroundColor: Colors.white,
           selectedFontSize: 10,
           unselectedFontSize: 10,
           items:
@@ -76,7 +77,7 @@ class _MainPageState extends State<MainPage>
               MaterialPageRoute(builder: (ctx) => AddPostPage()),
             );
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add, color: Colors.white),
         ),
       ),
     );

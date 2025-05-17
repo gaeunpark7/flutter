@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_labs/features/auth/home/main_page.dart';
+import 'package:flutter_labs/features/board/main_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AddPostPage extends StatefulWidget {

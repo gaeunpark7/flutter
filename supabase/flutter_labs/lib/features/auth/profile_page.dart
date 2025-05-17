@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_labs/features/auth/home/main_page.dart';
+import 'package:flutter_labs/features/board/main_page.dart';
 import 'package:flutter_labs/features/auth/login_page.dart';
 import 'package:flutter_labs/shared/component/my_textform.dart';
 import 'package:flutter_labs/shared/constants/my_text_style.dart';

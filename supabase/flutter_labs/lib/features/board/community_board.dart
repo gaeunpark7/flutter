@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_labs/features/board/community_borad_detail.dart';
 import 'package:flutter_labs/shared/constants/my_text_style.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:intl/intl.dart'; //날짜 포맷을 위한 패키지
@@ -19,6 +20,8 @@ class _CommunityBoardState extends State<CommunityBoard> {
           'id, title, content, create_at, user_id, users(nickname, profile_image)',
         )
         .order('create_at', ascending: false); // 최신순 정렬
+
+    print(response);
     return List<Map<String, dynamic>>.from(response);
   }
 
@@ -41,7 +44,6 @@ class _CommunityBoardState extends State<CommunityBoard> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("게시물이 없습니다."));
           }
-
           final posts = snapshot.data!;
 
           return CustomScrollView(
@@ -65,19 +67,33 @@ class _CommunityBoardState extends State<CommunityBoard> {
                     final post = posts[index];
                     return Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: cardDesign(
-                            nickname: post['users']?['nickname'] ?? '알수없음',
-                            date: formatDate(post['create_at']),
-                            title: post['title'] ?? '제목없음',
-                            content: post['content'] ?? '내용없음',
+                      child: GestureDetector(
+                        onTap: () {
+                          print("카드 클릭됨");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (ctx) => CommunityBoradDetail(post: post),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+
+                            child: cardDesign(
+                              nickname: post['users']?['nickname'] ?? '알수없음',
+                              date: formatDate(post['create_at']),
+                              title: post['title'] ?? '제목없음',
+                              content: post['content'] ?? '내용없음',
+                              profileImageUrl: post['users']?['profile_image'],
+                            ),
                           ),
                         ),
                       ),
@@ -131,7 +147,7 @@ class _CommunityBoardState extends State<CommunityBoard> {
           ],
         ),
         const Divider(),
-        Text(content),
+        Text(content, overflow: TextOverflow.ellipsis, maxLines: 3),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_labs/features/auth/home/main_page.dart';
-import 'package:flutter_labs/features/auth/home/profile_page.dart';
+import 'package:flutter_labs/features/board/main_page.dart';
+import 'package:flutter_labs/features/auth/profile_page.dart';
 import 'package:flutter_labs/features/auth/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,9 +10,8 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   await Supabase.initialize(
-    url: 'https://mcuuppefljrhselfqsyx.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jdXVwcGVmbGpyaHNlbGZxc3l4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYxODQ4NjMsImV4cCI6MjA2MTc2MDg2M30.n7kKo-qX-J-Y2tNdN63dxNcAgvaPR9pJ-u_jt1sTp3E',
+    url: '',
+    anonKey: '',
     // url: dotenv.env['URL']!,
     // anonKey: dotenv.env['KEY']!,
   );
