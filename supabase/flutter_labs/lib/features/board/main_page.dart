@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_labs/features/board/add_post_page.dart';
 import 'package:flutter_labs/features/board/community_board.dart';
-import 'package:flutter_labs/myPage/my_page.dart';
+import 'package:flutter_labs/features/myPage/my_page.dart';
 import 'package:flutter_labs/shared/component/my_bottom.dart';
 
 class MainPage extends StatefulWidget {

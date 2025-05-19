@@ -28,7 +28,11 @@ class _EditPostPageState extends State<EditPostPage> {
     try {
       final response = await supabase
           .from('posts')
-          .update({'title': titleCtr.text, 'content': contentCtr.text})
+          .update({
+            'title': titleCtr.text,
+            'content': contentCtr.text,
+            'updated_at': DateTime.now().toUtc().toIso8601String(),
+          })
           .eq('id', widget.post['id']); //게시물 id로 수정
 
       ScaffoldMessenger.of(

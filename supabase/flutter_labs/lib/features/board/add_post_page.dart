@@ -40,7 +40,7 @@ class _AddPostPageState extends State<AddPostPage> {
       //입력필드 초기화
       titleController.clear();
       descriptionController.clear();
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
