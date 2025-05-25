@@ -19,7 +19,7 @@ class _CommunityBoradDetailState extends State<CommunityBoradDetail> {
     return DateFormat('MM.dd').format(date);
   }
 
-  //게시물 삭제제
+  //게시물 삭제
   Future<void> _deletePost() async {
     final supabase = Supabase.instance.client;
 

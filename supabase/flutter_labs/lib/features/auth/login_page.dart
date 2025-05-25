@@ -53,45 +53,51 @@ class _LoginPageState extends State<LoginPage> {
         OAuthProvider.google,
         redirectTo: 'com.example.flutterlabs://login-callback',
       );
-      // 로그인 성공 후 유저 정보 가져오기
-      final user = Supabase.instance.client.auth.currentUser;
 
-      if (user == null) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("유저 정보를 불러올 수 없습니다.")));
-        return;
-      }
-      // users 테이블에서 유저 존재 확인
-      final existingUser =
-          await Supabase.instance.client
-              .from('users')
-              .select()
-              .eq('id', user.id)
-              .maybeSingle();
+      // 2. 로그인 후 상태 변화 감지 (signInWithOAuth는 리다이렉트 방식이라 직접 체크보다 이게 안전)
+      Supabase.instance.client.auth.onAuthStateChange.listen((data) async {
+        final event = data.event;
+        final session = data.session;
 
-      if (existingUser == null) {
-        // 없으면 users 테이블에 등록
-        await Supabase.instance.client.from('users').insert({
-          'id': user.id,
-          'email': user.email,
-        });
+        if (event == AuthChangeEvent.signedIn && session != null) {
+          final user = session.user;
+          // // 로그인 성공 후 유저 정보 가져오기
+          // final user = Supabase.instance.client.auth.currentUser;
 
-        // ScaffoldMessenger.of(
-        //   context,
-        // ).showSnackBar(SnackBar(content: Text("구글 로그인 성공!")));
+          // if (user == null) {
+          //   ScaffoldMessenger.of(
+          //     context,
+          //   ).showSnackBar(SnackBar(content: Text("유저 정보를 불러올 수 없습니다.")));
+          //   return;
+          // }
+          // users 테이블에서 유저 존재 확인
+          final existingUser =
+              await Supabase.instance.client
+                  .from('users')
+                  .select()
+                  .eq('id', user.id)
+                  .maybeSingle();
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (ctx) => ProfilePage()),
-        );
-      } else {
-        //있으면 메인 페이지
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (ctx) => MainPage()),
-        );
-      }
+          if (existingUser == null) {
+            // 없으면 users 테이블에 등록
+            await Supabase.instance.client.from('users').insert({
+              'id': user.id,
+              'email': user.email,
+            });
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (ctx) => ProfilePage()),
+            );
+          } else {
+            //있으면 메인 페이지
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (ctx) => MainPage()),
+            );
+          }
+        }
+      });
     } catch (e) {
       print('로그인 오류: $e');
       ScaffoldMessenger.of(
