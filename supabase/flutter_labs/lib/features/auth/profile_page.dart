@@ -27,6 +27,13 @@ class _ProfilePageState extends State<ProfilePage> {
     _redirectBasedOnProfileStatus();
   }
 
+  @override
+  void dispose() {
+    nicController.dispose();
+    introController.dispose();
+    super.dispose();
+  }
+
   /// 로그인 여부, 프로필 작성 여부
   Future<void> _redirectBasedOnProfileStatus() async {
     final user = supabase.auth.currentUser;
@@ -88,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
             fileBytes,
             fileOptions: const FileOptions(upsert: true),
           );
-
+      // 업로드 후 public URL 가져옴
       return supabase.storage.from('profile-images').getPublicUrl(fileName);
     } catch (e) {
       print("이미지 업로드 실패: $e");
@@ -96,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  /// 프로필 이미지 Supabase에 저장
+  /// 프로필 이미지, 정보 Supabase에 저장
   Future<void> _submitProfile() async {
     final user = supabase.auth.currentUser;
     final userId = supabase.auth.currentUser?.id;
@@ -105,6 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
     if (userId == null) return;
 
     final nickname = nicController.text.trim();
+    final bio = introController.text.trim();
+
     if (nickname.isEmpty) {
       ScaffoldMessenger.of(
         context,
@@ -113,13 +122,15 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     try {
+      //갤러리에서 고른 이미지를 Storage에 업로드하고, url을 가져옴.
       final imageUrl = await _uploadImageToSupabase(userId);
 
+      //users 테이블에 프로필 정보 저장
       final response = await supabase.from('users').upsert({
         'id': userId,
         'email': email,
-        'nickname': nicController.text.trim(),
-        'bio': introController.text.trim(),
+        'nickname': nickname,
+        'bio': bio,
         'profile_image': imageUrl,
       });
 
