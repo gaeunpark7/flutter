@@ -1,6 +1,8 @@
-class Salmon {
+import 'package:flutter/widgets.dart';
+
+class Salmon with ChangeNotifier {
   final String fishName;
-  final int fishNumber;
+  int fishNumber;
   final String fishSize;
 
   Salmon({
@@ -8,4 +10,9 @@ class Salmon {
     required this.fishNumber,
     required this.fishSize,
   });
+
+  void changeFishNumber() {
+    fishNumber++;
+    notifyListeners();
+  }
 }

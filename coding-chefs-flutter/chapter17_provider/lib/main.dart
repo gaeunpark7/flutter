@@ -148,10 +148,12 @@ class SpicyB extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20),
-        ElevatedButton(onPressed: () {
-          Provider.of<Salmon>(context)
-
-        }, child: Text("Change fish number")),
+        ElevatedButton(
+          onPressed: () {
+            Provider.of<Salmon>(context, listen: false).changeFishNumber();
+          },
+          child: Text("Change fish number"),
+        ),
       ],
     );
   }
