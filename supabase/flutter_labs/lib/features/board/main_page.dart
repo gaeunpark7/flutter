@@ -60,12 +60,10 @@ class _MainPageState extends State<MainPage>
                   )
                   .toList(),
         ),
-        body: Expanded(
-          child: TabBarView(
-            physics: const NeverScrollableScrollPhysics(), // 스와이핑으로 화면 전환 방지
-            controller: _tabController,
-            children: [CommunityBoard(), Container(), Container(), MyPage()],
-          ),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(), // 스와이핑으로 화면 전환 방지
+          controller: _tabController,
+          children: [CommunityBoard(), Container(), Container(), MyPage()],
         ),
 
         floatingActionButton: FloatingActionButton(

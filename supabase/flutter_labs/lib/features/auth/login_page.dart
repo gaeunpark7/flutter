@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         redirectTo: 'com.example.flutterlabs://login-callback',
       );
 
-      // 2. 로그인 후 상태 변화 감지 (signInWithOAuth는 리다이렉트 방식이라 직접 체크보다 이게 안전)
+      // 2. 로그인 후 상태 변화 감지 
       Supabase.instance.client.auth.onAuthStateChange.listen((data) async {
         final event = data.event;
         final session = data.session;
