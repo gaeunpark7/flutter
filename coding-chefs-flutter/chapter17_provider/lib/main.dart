@@ -1,3 +1,4 @@
+import 'package:chapter17_provider/riverpod/image_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'couterpage.dart';
@@ -11,6 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Counterpage());
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: ImagePage(),
+    );
   }
 }
