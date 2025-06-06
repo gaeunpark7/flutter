@@ -1,3 +1,4 @@
+import 'package:chapter17_provider/riverpod/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'image_list_provider.dart';
@@ -25,73 +26,12 @@ class ImagePage extends ConsumerWidget {
                 : ListView.builder(
                   itemCount: imageList.length,
                   itemBuilder: (ctx, index) {
-                    final imageUrl = imageList[index];
-                    return Card(
-                      margin: EdgeInsets.all(8.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              imageUrl,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              loadingBuilder: (
-                                BuildContext context,
-                                Widget child,
-                                ImageChunkEvent? loadingProgress,
-                              ) {
-                                if (loadingProgress == null) return child;
-                                return SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                    ),
-                                  ),
-                                );
-                              },
-                              //이미지 로딩 실패 시 표시될 위젯
-                              errorBuilder: (
-                                BuildContext context,
-                                Object exception,
-                                StackTrace? stackTrace,
-                              ) {
-                                return SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                      size: 50,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(child: Text("이미지 ${index + 1}")),
-                            IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(imageListNotifier.notifier)
-                                    .removeImage(index);
-                              },
-                              icon: Icon(Icons.delete, color: Colors.red),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return ImageCard(
+                      imageUrl: imageList[index],
+                      index: index,
+                      onDelete: () {
+                        ref.read(imageListNotifier.notifier).removeImage(index);
+                      },
                     );
                   },
                 ),
