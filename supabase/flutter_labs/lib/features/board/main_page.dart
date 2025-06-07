@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_labs/features/board/add_post_page.dart';
 import 'package:flutter_labs/features/board/community_board.dart';
 import 'package:flutter_labs/features/myPage/my_page.dart';
+import 'package:flutter_labs/group/chat_page.dart';
 import 'package:flutter_labs/shared/component/my_bottom.dart';
 
 class MainPage extends StatefulWidget {
@@ -63,20 +64,22 @@ class _MainPageState extends State<MainPage>
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(), // 스와이핑으로 화면 전환 방지
           controller: _tabController,
-          children: [CommunityBoard(), Container(), Container(), MyPage()],
+          children: [CommunityBoard(), ChatPage(), Container(), MyPage()],
         ),
-
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          shape: CircleBorder(),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (ctx) => AddPostPage()),
-            );
-          },
-          child: Icon(Icons.add, color: Colors.white),
-        ),
+        floatingActionButton:
+            _currentIndex == 0
+                ? FloatingActionButton(
+                  backgroundColor: Colors.blueGrey,
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => AddPostPage()),
+                    );
+                  },
+                  child: Icon(Icons.add, color: Colors.white),
+                )
+                : null,
       ),
     );
   }

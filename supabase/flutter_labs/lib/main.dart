@@ -17,7 +17,7 @@ void main() async {
     // anonKey: dotenv.env['KEY']!,
   );
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

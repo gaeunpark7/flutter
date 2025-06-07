@@ -234,7 +234,7 @@ class _ProfilePageState extends State<ProfilePage> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
         onPressed: _submitProfile,
-        child: Text("시작하기", style: MyTextStyle.title),
+        child: Text("시작하기", style: MyTextStyle.title)
       ),
     );
   }
