@@ -41,6 +41,8 @@ dependencies:
   flutter_web_auth_2: ^4.1.0
   image_picker: ^1.1.2
   flutter_riverpod: ^2.6.1
+  riverpod_generator: ^2.6.5
+  build_runner: ^2.4.15
 
 dev_dependencies:
   flutter_test:

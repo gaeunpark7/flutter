@@ -12,12 +12,13 @@ void main() async {
 
   await Supabase.initialize(
     url: '',
-    anonKey: '',
+    anonKey:
+        '',
     // url: dotenv.env['URL']!,
     // anonKey: dotenv.env['KEY']!,
   );
 
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
