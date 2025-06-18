@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_labs/features/board/community_borad_detail.dart';
+import 'package:flutter_labs/features/board/data/post_provider.dart';
 import 'package:flutter_labs/shared/constants/my_text_style.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:intl/intl.dart'; //날짜 포맷을 위한 패키지
+import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CommunityBoard extends StatefulWidget {
+class CommunityBoard extends ConsumerWidget {
   const CommunityBoard({super.key});
-
-  @override
-  State<CommunityBoard> createState() => _CommunityBoardState();
-}
-
-class _CommunityBoardState extends State<CommunityBoard> {
-  Future<List<Map<String, dynamic>>> getPosts() async {
-    final supabase = Supabase.instance.client;
-    final response = await supabase
-        .from('posts')
-        .select(
-          'id, title, content, create_at, user_id, users(nickname, profile_image)',
-        )
-        .order('create_at', ascending: false); // 최신순 정렬
-
-    print(response);
-    return List<Map<String, dynamic>>.from(response);
-  }
 
   String formatDate(String timestampe) {
     final date = DateTime.parse(timestampe);
@@ -31,28 +15,24 @@ class _CommunityBoardState extends State<CommunityBoard> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postsAsync = ref.watch(postListProvider);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: FutureBuilder<List<Map<String, dynamic>>>(
-          future: getPosts(),
-          builder: (ctx, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("데이터를 불러오는 중 오류가 발생했습니다."));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        body: postsAsync.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (err, stack) => Center(child: Text("데이터를 불러오는 중 오류가 발생했습니다.")),
+          data: (posts) {
+            if (posts.isEmpty) {
               return const Center(child: Text("게시물이 없습니다."));
             }
-            final posts = snapshot.data!;
-
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  floating: true, // 스크롤 시 앱바가 바로 나타남
-                  pinned: false, // 스크롤 시 앱바가 상단에 고정되지 않음
-                  // expandedHeight: 10, // 앱바 높이
+                  floating: true,
+                  pinned: false,
                   title: const Text(
                     "게시판",
                     style: TextStyle(color: Colors.white),
@@ -60,48 +40,44 @@ class _CommunityBoardState extends State<CommunityBoard> {
                   centerTitle: true,
                   backgroundColor: Colors.blueGrey,
                 ),
-
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      final post = posts[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            print("카드 클릭됨");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (ctx) => CommunityBoradDetail(post: post),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            color: Colors.white,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                  delegate: SliverChildBuilderDelegate((
+                    BuildContext context,
+                    int index,
+                  ) {
+                    final post = posts[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (ctx) => CommunityBoradDetail(post: post),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-
-                              child: cardDesign(
-                                nickname: post['users']?['nickname'] ?? '알수없음',
-                                date: formatDate(post['create_at']),
-                                title: post['title'] ?? '제목없음',
-                                content: post['content'] ?? '내용없음',
-                                profileImageUrl:
-                                    post['users']?['profile_image'],
-                              ),
+                          );
+                        },
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: cardDesign(
+                              nickname: post['users']?['nickname'] ?? '알수없음',
+                              date: formatDate(post['create_at']),
+                              title: post['title'] ?? '제목없음',
+                              content: post['content'] ?? '내용없음',
+                              profileImageUrl: post['users']?['profile_image'],
                             ),
                           ),
                         ),
-                      );
-                    },
-                    childCount: posts.length, // 게시물 개수
-                  ),
+                      ),
+                    );
+                  }, childCount: posts.length),
                 ),
               ],
             );
@@ -129,7 +105,6 @@ class _CommunityBoardState extends State<CommunityBoard> {
                   child: Icon(Icons.person, color: Colors.white),
                 )
                 : CircleAvatar(backgroundImage: NetworkImage(profileImageUrl)),
-
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

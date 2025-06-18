@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_labs/features/board/data/post_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class EditPostPage extends StatefulWidget {
+class EditPostPage extends ConsumerStatefulWidget {
   final Map<String, dynamic> post;
   const EditPostPage({super.key, required this.post});
 
   @override
-  State<EditPostPage> createState() => _EditPostPageState();
+  ConsumerState<EditPostPage> createState() => _EditPostPageState();
 }
 
-class _EditPostPageState extends State<EditPostPage> {
+class _EditPostPageState extends ConsumerState<EditPostPage> {
   final formkey = GlobalKey<FormState>();
   var titleCtr = TextEditingController();
   var contentCtr = TextEditingController();
@@ -26,15 +28,17 @@ class _EditPostPageState extends State<EditPostPage> {
     }
 
     try {
-      final response = await supabase
-          .from('posts')
-          .update({
-            'title': titleCtr.text,
-            'content': contentCtr.text,
-            'updated_at': DateTime.now().toUtc().toIso8601String(),
-          })
-          .eq('id', widget.post['id']); //게시물 id로 수정
-
+      // final response = await supabase
+      //     .from('posts')
+      //     .update({
+      //       'title': titleCtr.text,
+      //       'content': contentCtr.text,
+      //       'updated_at': DateTime.now().toUtc().toIso8601String(),
+      //     })
+      //     .eq('id', widget.post['id']); //게시물 id로 수정
+      ref
+          .read(postListProvider.notifier)
+          .updatePost(widget.post['id'], titleCtr.text, contentCtr.text);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("게시물이 성공적으로 수정되었습니다.")));

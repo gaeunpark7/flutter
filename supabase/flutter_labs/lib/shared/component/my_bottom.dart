@@ -6,8 +6,6 @@ class NavItem {
   final String label;
 
   const NavItem({required this.activeIcon, required this.label});
-
-  get iconData => null;
 }
 
 final navItems = [

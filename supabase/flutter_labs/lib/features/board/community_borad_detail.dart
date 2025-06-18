@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_labs/features/board/data/post_provider.dart';
 import 'package:flutter_labs/features/board/edit_post_page.dart';
 import 'package:flutter_labs/shared/constants/my_text_style.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:intl/intl.dart';
 
-class CommunityBoradDetail extends StatefulWidget {
+class CommunityBoradDetail extends ConsumerStatefulWidget {
   final Map<String, dynamic> post;
-
   const CommunityBoradDetail({super.key, required this.post});
 
   @override
-  State<CommunityBoradDetail> createState() => _CommunityBoradDetailState();
+  ConsumerState<CommunityBoradDetail> createState() =>
+      _CommunityBoradDetailState();
 }
 
-class _CommunityBoradDetailState extends State<CommunityBoradDetail> {
+class _CommunityBoradDetailState extends ConsumerState<CommunityBoradDetail> {
   String formatDate(String timestampe) {
     final date = DateTime.parse(timestampe);
     return DateFormat('MM.dd').format(date);
@@ -24,10 +26,7 @@ class _CommunityBoradDetailState extends State<CommunityBoradDetail> {
     final supabase = Supabase.instance.client;
 
     try {
-      await supabase
-          .from('posts')
-          .delete()
-          .eq('id', widget.post['id']); // 해당 게시물 id 기준으로 삭제
+      ref.read(postListProvider.notifier).deletePost(widget.post['id']);
 
       ScaffoldMessenger.of(
         context,

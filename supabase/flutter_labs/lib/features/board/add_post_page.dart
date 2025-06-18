@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_labs/features/board/data/post_provider.dart';
 import 'package:flutter_labs/features/board/main_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'data/post_provider.dart';
 
-class AddPostPage extends StatefulWidget {
+class AddPostPage extends ConsumerStatefulWidget {
   const AddPostPage({super.key});
 
   @override
-  State<AddPostPage> createState() => _AddPostPageState();
+  ConsumerState<AddPostPage> createState() => _AddPostPageState();
 }
 
-class _AddPostPageState extends State<AddPostPage> {
+class _AddPostPageState extends ConsumerState<AddPostPage> {
   var formkey = GlobalKey<FormState>();
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
@@ -26,18 +29,12 @@ class _AddPostPageState extends State<AddPostPage> {
     }
 
     try {
-      final response = await supabase.from('posts').insert({
-        'title': titleController.text,
-        'content': descriptionController.text,
-        'user_id': user.id,
-      });
-
+      await ref
+          .read(postListProvider.notifier)
+          .addPost(titleController.text, descriptionController.text, user.id);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("게시물이 성공적으로 추가되었습니다.")));
-
-      print(response);
-      //입력필드 초기화
       titleController.clear();
       descriptionController.clear();
       Navigator.pop(context, true);
