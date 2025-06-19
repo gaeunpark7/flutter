@@ -37,7 +37,7 @@ class PostListNotifier
     await fetchPosts();
   }
 
-  Future<void> updatePost(int id, String title, String content) async {
+  Future<void> updatePost(String id, String title, String content) async {
     final supabase = Supabase.instance.client;
     await supabase
         .from('posts')
@@ -50,7 +50,7 @@ class PostListNotifier
     await fetchPosts();
   }
 
-  Future<void> deletePost(int id) async {
+  Future<void> deletePost(String id) async {
     final supabase = Supabase.instance.client;
     await supabase.from('posts').delete().eq('id', id);
     await fetchPosts();
