@@ -44,7 +44,7 @@ class PostListNotifier
         .update({
           'title': title,
           'content': content,
-          'update_at': DateTime.now().toUtc().toIso8601String(),
+          'updated_at': DateTime.now().toUtc().toIso8601String(),
         })
         .eq('id', id);
     await fetchPosts();

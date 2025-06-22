@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_labs/features/board/community_board.dart';
 import 'package:flutter_labs/features/board/data/post_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,15 +18,15 @@ class _EditPostPageState extends ConsumerState<EditPostPage> {
   var contentCtr = TextEditingController();
 
   Future<void> _editPost() async {
-    final supabase = Supabase.instance.client;
-    final user = supabase.auth.currentUser;
+    // final supabase = Supabase.instance.client;
+    // final user = supabase.auth.currentUser;
 
-    if (user == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("로그인이 필요합니다.")));
-      return;
-    }
+    // if (user == null) {
+    //   ScaffoldMessenger.of(
+    //     context,
+    //   ).showSnackBar(SnackBar(content: Text("로그인이 필요합니다.")));
+    //   return;
+    // }
 
     try {
       // final response = await supabase
@@ -39,10 +40,14 @@ class _EditPostPageState extends ConsumerState<EditPostPage> {
       ref
           .read(postListProvider.notifier)
           .updatePost(widget.post['id'], titleCtr.text, contentCtr.text);
+
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("게시물이 성공적으로 수정되었습니다.")));
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) => CommunityBoard()),
+      );
     } catch (e) {
       ScaffoldMessenger.of(
         context,
