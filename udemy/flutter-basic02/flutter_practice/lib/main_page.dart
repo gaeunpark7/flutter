@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/main_page_detail.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -24,12 +25,18 @@ class _MainPageState extends State<MainPage> {
         SliverList(
             delegate: SliverChildBuilderDelegate(childCount: posts.length,
                 (BuildContext context, int index) {
-          return Card(
-            child: ListTile(
-              leading: CircleAvatar(child: Text("${index + 1}")),
-              title: Text(posts[index]),
-              subtitle: const Text("여기에 본문이 들어가요.",
-                  maxLines: 2, overflow: TextOverflow.ellipsis),
+          return InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (ctx) => const MainPageDetail()));
+            },
+            child: Card(
+              child: ListTile(
+                leading: CircleAvatar(child: Text("${index + 1}")),
+                title: Text(posts[index]),
+                subtitle: const Text("여기에 본문이 들어가요.",
+                    maxLines: 2, overflow: TextOverflow.ellipsis),
+              ),
             ),
           );
         }))
