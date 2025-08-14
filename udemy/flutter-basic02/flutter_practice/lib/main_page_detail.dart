@@ -63,9 +63,10 @@ class _MainPageDetailState extends State<MainPageDetail> {
               },
               child: const Text("AlertDialog")),
           ElevatedButton(
-              onPressed: () {
-                showDialog(
+              onPressed: () async {
+                var ret = await showDialog(
                     context: context,
+                    barrierDismissible: false,
                     builder: (ctx) => Dialog(
                           child: Padding(
                             padding: const EdgeInsets.all(20),
@@ -84,7 +85,44 @@ class _MainPageDetailState extends State<MainPageDetail> {
                           ),
                         ));
               },
-              child: const Text("Dialog"))
+              child: const Text("Dialog")),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      fixedSize: const Size(120, 30)),
+                  child: const Text("Elevated Button")),
+              FilledButton(
+                  onPressed: () {},
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                    side: const BorderSide(color: Colors.deepPurple, width: 1),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    foregroundColor: Colors.black,
+                  ),
+                  child: const Text("Filled Button")),
+              OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    side: BorderSide.none,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    )),
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                  ),
+                  child: const Text("Outline Button")),
+            ],
+          )
         ]),
       ),
     );
