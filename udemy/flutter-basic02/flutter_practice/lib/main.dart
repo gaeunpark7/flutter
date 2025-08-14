@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/home_page.dart';
+import 'package:flutter_practice/provider/image_list_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -14,6 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(colorSchemeSeed: Colors.blue),
         debugShowCheckedModeBanner: false,
-        home: const HomePage());
+        home: const ImageListPage());
   }
 }
