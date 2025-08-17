@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImageListProvider extends StateNotifier<List<String>> {
@@ -7,8 +6,9 @@ class ImageListProvider extends StateNotifier<List<String>> {
 
   void addImage() {
     final randomImage = Random().nextInt(1000);
-    String ImageUrl = "https://picsum.photos/seed/$randomImage/200/300";
-    state = [...state, ImageUrl];
+    String imageUrl = "https://picsum.photos/seed/$randomImage/200/300";
+    print(imageUrl);
+    state = [...state, imageUrl];
   }
 
   void removeImage(int index) {
