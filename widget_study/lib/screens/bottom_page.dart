@@ -1,5 +1,6 @@
 //tabBarView, BottomNavigation
 import 'package:flutter/material.dart';
+import 'package:widget_study/screens/main_page.dart';
 
 class BottomPage extends StatefulWidget {
   const BottomPage({super.key});
@@ -58,7 +59,7 @@ class _BottomPageState extends State<BottomPage>
         body: TabBarView(
           controller: _tabController,
           children: [
-            Container(color: Colors.blue),
+            MainPage(),
             Container(color: Colors.amber),
             Container(),
             Container(),
@@ -76,7 +77,7 @@ class NavItem {
   NavItem({required this.icon, required this.label});
 }
 
-List<NavItem> navItems = [
+List navItems = [
   NavItem(icon: Icons.home, label: "홈"),
   NavItem(icon: Icons.group, label: "그룹"),
   NavItem(icon: Icons.chat_bubble, label: "채팅"),
