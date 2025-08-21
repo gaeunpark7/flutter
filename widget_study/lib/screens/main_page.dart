@@ -16,29 +16,59 @@ class _MainPageState extends State<MainPage> {
         children: [
           Row(
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  side: BorderSide.none,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  foregroundColor: Colors.white,
-                  fixedSize: Size(200, 30),
-                  elevation: 0,
-                ),
-                onPressed: () {
+              _buildButton(
+                buttonColor: Colors.amber,
+                textColor: Colors.white,
+                text: "appBar",
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (ctx) => AppbarPage()),
                   );
                 },
-                child: Text("Appbar"),
+              ),
+              _buildButton(
+                buttonColor: Colors.purple,
+                textColor: Colors.white,
+                text: "Stack/Align",
+                onTap: () {},
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class _buildButton extends StatelessWidget {
+  final Color buttonColor;
+  final Color textColor;
+  final String text;
+  final VoidCallback onTap;
+
+  const _buildButton({
+    required this.buttonColor,
+    required this.textColor,
+    required this.text,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor,
+        side: BorderSide.none,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        foregroundColor: textColor,
+        fixedSize: Size(200, 30),
+        elevation: 0,
+      ),
+      onPressed: onTap,
+      child: Text(text),
     );
   }
 }

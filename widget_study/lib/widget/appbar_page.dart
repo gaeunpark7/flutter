@@ -28,37 +28,7 @@ class _AppbarPageState extends State<AppbarPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Container(
-        color: Colors.grey[200],
-        width: MediaQuery.of(context).size.width * 0.66,
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.grey),
-
-              child: Column(
-                children: [
-                  Text("Drawer Header"),
-                  ClipOval(
-                    child: Image.network(
-                      "https://picsum.photos/seed/picsum/200/300",
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("홈"),
-              trailing: Icon(Icons.delete),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+      drawer: _buildDrawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -116,6 +86,44 @@ class _AppbarPageState extends State<AppbarPage>
           Container(color: Colors.amber),
           Container(color: Colors.blue),
           Container(),
+        ],
+      ),
+    );
+  }
+}
+
+class _buildDrawer extends StatelessWidget {
+  const _buildDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey[200],
+      width: MediaQuery.of(context).size.width * 0.66,
+      child: ListView(
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Column(
+              children: [
+                Text("Drawer Header"),
+                ClipOval(
+                  child: Image.network(
+                    "https://picsum.photos/seed/picsum/200/300",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text("홈"),
+            trailing: Icon(Icons.delete),
+            onTap: () {},
+          ),
         ],
       ),
     );
