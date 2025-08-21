@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widget_study/widget/appbar_page.dart';
+import 'package:widget_study/widget/stack_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -31,7 +32,12 @@ class _MainPageState extends State<MainPage> {
                 buttonColor: Colors.purple,
                 textColor: Colors.white,
                 text: "Stack/Align",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (ctx) => StackPage()),
+                  );
+                },
               ),
             ],
           ),
