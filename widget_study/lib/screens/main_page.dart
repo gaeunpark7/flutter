@@ -41,6 +41,16 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
+          Row(
+            children: [
+              _buildButton(
+                buttonColor: Colors.blueAccent,
+                textColor: Colors.white,
+                text: "CustomScrollView",
+                onTap: () {},
+              ),
+            ],
+          ),
         ],
       ),
     );

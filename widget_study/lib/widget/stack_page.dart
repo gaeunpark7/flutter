@@ -14,6 +14,7 @@ class _StackPageState extends State<StackPage> {
       child: Scaffold(
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 200,
@@ -99,10 +100,13 @@ class _buildProfile extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
           child: Icon(Icons.person, size: 100, color: Colors.white),
         ),
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: const Color.fromARGB(255, 68, 84, 143),
-          child: Icon(Icons.camera_enhance, color: Colors.white),
+        GestureDetector(
+          onTap: () {},
+          child: CircleAvatar(
+            radius: 30,
+            backgroundColor: const Color.fromARGB(255, 68, 84, 143),
+            child: Icon(Icons.camera_enhance, color: Colors.white),
+          ),
         ),
       ],
     );
