@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widget_study/widget/appbar_page.dart';
+import 'package:widget_study/widget/customScrollView_page.dart';
 import 'package:widget_study/widget/stack_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -47,7 +48,12 @@ class _MainPageState extends State<MainPage> {
                 buttonColor: Colors.blueAccent,
                 textColor: Colors.white,
                 text: "CustomScrollView",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (ctx) => CustomscrollviewPage()),
+                  );
+                },
               ),
             ],
           ),
