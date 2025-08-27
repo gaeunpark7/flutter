@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widget_study/widget/appbar_page.dart';
 import 'package:widget_study/widget/customScrollView_page.dart';
 import 'package:widget_study/widget/stack_page.dart';
+import 'package:go_router/go_router.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,10 +24,7 @@ class _MainPageState extends State<MainPage> {
                 textColor: Colors.white,
                 text: "appBar",
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (ctx) => AppbarPage()),
-                  );
+                  context.pushNamed("appbar");
                 },
               ),
               _buildButton(
@@ -34,10 +32,7 @@ class _MainPageState extends State<MainPage> {
                 textColor: Colors.white,
                 text: "Stack/Align",
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (ctx) => StackPage()),
-                  );
+                  context.pushNamed("stack");
                 },
               ),
             ],
@@ -49,10 +44,15 @@ class _MainPageState extends State<MainPage> {
                 textColor: Colors.white,
                 text: "CustomScrollView",
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (ctx) => CustomscrollviewPage()),
-                  );
+                  context.pushNamed("custom");
+                },
+              ),
+              _buildButton(
+                buttonColor: Colors.grey,
+                textColor: Colors.white,
+                text: "textFormField",
+                onTap: () {
+                  context.pushNamed("textform");
                 },
               ),
             ],
