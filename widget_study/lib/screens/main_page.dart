@@ -57,6 +57,18 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
+          Row(
+            children: [
+              _buildButton(
+                buttonColor: Colors.greenAccent,
+                textColor: Colors.white,
+                text: "Dialog",
+                onTap: () {
+                  context.pushNamed("");
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );
