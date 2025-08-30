@@ -64,8 +64,26 @@ class _MainPageState extends State<MainPage> {
                 textColor: Colors.white,
                 text: "Dialog",
                 onTap: () {
-                  context.pushNamed("");
+                  context.pushNamed("dialog");
                 },
+              ),
+              _buildButton(
+                buttonColor: Colors.green,
+                textColor: Colors.white,
+                text: "GridView",
+                onTap: () {
+                  context.pushNamed("gridview");
+                },
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              _buildButton(
+                buttonColor: Colors.grey,
+                textColor: Colors.white,
+                text: "BottomSheet",
+                onTap: () {},
               ),
             ],
           ),
