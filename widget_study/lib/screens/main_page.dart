@@ -15,79 +15,84 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            children: [
-              _buildButton(
-                buttonColor: Colors.amber,
-                textColor: Colors.white,
-                text: "appBar",
-                onTap: () {
-                  context.pushNamed("appbar");
-                },
-              ),
-              _buildButton(
-                buttonColor: Colors.purple,
-                textColor: Colors.white,
-                text: "Stack/Align",
-                onTap: () {
-                  context.pushNamed("stack");
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              _buildButton(
-                buttonColor: Colors.blueAccent,
-                textColor: Colors.white,
-                text: "CustomScrollView",
-                onTap: () {
-                  context.pushNamed("custom");
-                },
-              ),
-              _buildButton(
-                buttonColor: Colors.grey,
-                textColor: Colors.white,
-                text: "textFormField",
-                onTap: () {
-                  context.pushNamed("textform");
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              _buildButton(
-                buttonColor: Colors.greenAccent,
-                textColor: Colors.white,
-                text: "Dialog",
-                onTap: () {
-                  context.pushNamed("dialog");
-                },
-              ),
-              _buildButton(
-                buttonColor: Colors.green,
-                textColor: Colors.white,
-                text: "GridView",
-                onTap: () {
-                  context.pushNamed("gridview");
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              _buildButton(
-                buttonColor: Colors.grey,
-                textColor: Colors.white,
-                text: "BottomSheet",
-                onTap: () {},
-              ),
-            ],
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: Colors.amber,
+                  textColor: Colors.white,
+                  text: "appBar",
+                  onTap: () {
+                    context.pushNamed("appbar");
+                  },
+                ),
+                _buildButton(
+                  buttonColor: Colors.purple,
+                  textColor: Colors.white,
+                  text: "Stack/Align",
+                  onTap: () {
+                    context.pushNamed("stack");
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: Colors.blueAccent,
+                  textColor: Colors.white,
+                  text: "CustomScrollView",
+                  onTap: () {
+                    context.pushNamed("custom");
+                  },
+                ),
+                _buildButton(
+                  buttonColor: Colors.grey,
+                  textColor: Colors.white,
+                  text: "textFormField",
+                  onTap: () {
+                    context.pushNamed("textform");
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: Colors.greenAccent,
+                  textColor: Colors.white,
+                  text: "Dialog",
+                  onTap: () {
+                    context.pushNamed("dialog");
+                  },
+                ),
+                _buildButton(
+                  buttonColor: Colors.green,
+                  textColor: Colors.white,
+                  text: "GridView",
+                  onTap: () {
+                    context.pushNamed("gridview");
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: Colors.black,
+                  textColor: Colors.white,
+                  text: "BottomSheet",
+                  onTap: () {
+                    context.pushNamed("bottomsheet");
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
