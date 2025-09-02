@@ -126,6 +126,7 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.more_horiz),
                     ],
                   ),
+                  //사진
                   SizedBox(
                     height: 270,
                     width: double.infinity,
