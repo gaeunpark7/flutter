@@ -19,7 +19,9 @@ class _BottomPageState extends State<BottomPage>
     _tabController = TabController(length: 4, vsync: this);
   }
 
-  void disepose() {
+  @override
+  void dispose() {
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -74,7 +76,7 @@ class _BottomPageState extends State<BottomPage>
   Widget _buildNavItem(IconData icon, String label, int index) {
     final isSelected = _selectIndex == index;
     // final color = isSelected ? Colors.red : Colors.grey;
-    IconData icon;
+    // IconData icon;
 
     switch (index) {
       case 0:
