@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:widget_study/provider/notifier/image_page.dart';
 import 'package:widget_study/widget/appbar_page.dart';
-import 'package:widget_study/widget/customScrollView_page.dart';
+import 'package:widget_study/widget/custom_scroll_view_page.dart';
 import 'package:widget_study/widget/stack_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -87,6 +88,29 @@ class _MainPageState extends State<MainPage> {
                   text: "BottomSheet",
                   onTap: () {
                     context.pushNamed("bottomsheet");
+                  },
+                ),
+                _buildButton(
+                  buttonColor: Colors.blue,
+                  textColor: Colors.white,
+                  text: "PageView",
+                  onTap: () {
+                    context.pushNamed("pageview");
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: const Color.fromARGB(255, 115, 12, 112),
+                  textColor: Colors.white,
+                  text: "StateNotifier",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => ImagePage()),
+                    );
                   },
                 ),
               ],
