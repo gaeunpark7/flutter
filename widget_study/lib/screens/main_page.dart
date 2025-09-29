@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:widget_study/provider/bloc/cubit/counter_page.dart';
 import 'package:widget_study/provider/notifier/image_page.dart';
 import 'package:widget_study/widget/appbar_page.dart';
 import 'package:widget_study/widget/custom_scroll_view_page.dart';
 import 'package:widget_study/widget/stack_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:widget_study/widget/test.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -110,6 +112,32 @@ class _MainPageState extends State<MainPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (ctx) => ImagePage()),
+                    );
+                  },
+                ),
+                _buildButton(
+                  buttonColor: const Color.fromARGB(255, 112, 94, 112),
+                  textColor: Colors.white,
+                  text: "Bloc",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => CounterPage()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                _buildButton(
+                  buttonColor: const Color.fromARGB(255, 112, 94, 112),
+                  textColor: Colors.white,
+                  text: "test",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => Test()),
                     );
                   },
                 ),
