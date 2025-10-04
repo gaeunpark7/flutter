@@ -5,7 +5,7 @@ import 'package:widget_study/widget/appbar_page.dart';
 import 'package:widget_study/widget/custom_scroll_view_page.dart';
 import 'package:widget_study/widget/stack_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:widget_study/widget/test.dart';
+import 'package:widget_study/widget/popup_menu_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -133,11 +133,11 @@ class _MainPageState extends State<MainPage> {
                 _buildButton(
                   buttonColor: const Color.fromARGB(255, 112, 94, 112),
                   textColor: Colors.white,
-                  text: "test",
+                  text: "PopupMenu/DropDown",
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (ctx) => Test()),
+                      MaterialPageRoute(builder: (ctx) => PopupMenuPage()),
                     );
                   },
                 ),
