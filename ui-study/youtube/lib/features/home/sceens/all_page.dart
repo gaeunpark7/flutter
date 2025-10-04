@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube/features/home/model/info_model.dart';
+import 'package:youtube/features/home/sceens/detail_page.dart';
 
 class AllPage extends StatefulWidget {
   const AllPage({super.key});
@@ -41,49 +42,69 @@ class _AllPageState extends State<AllPage> {
     return ListView.builder(
       itemCount: info.length,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Image.asset(
-              info[index].thumbnailImage ?? "",
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ), // 여백을 줄임
-              // minLeadingWidth: 10, // leading과 title 사이 간격 최소화
-              leading: CircleAvatar(
-                radius: 25, // 프로필 이미지 크기 줄임
-                backgroundImage: AssetImage(info[index].profileImage),
-              ),
-              title: Text(
-                info[index].title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (ctx) => DetailPage()),
+            );
+          },
+          child: Column(
+            children: [
+              Hero(
+                tag: 'thumbnailImage',
+                child: Image.asset(
+                  info[index].thumbnailImage ?? "",
+                  height: 250,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
-              subtitle: Row(
-                children: [
-                  Text(
-                    info[index].nickname,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  SizedBox(width: 8),
-                  Text(info[index].views, style: TextStyle(color: Colors.grey)),
-                  SizedBox(width: 8),
-                  Text(info[index].date, style: TextStyle(color: Colors.grey)),
-                ],
-              ),
-              trailing: Icon(Icons.more_vert, color: Colors.white),
-            ),
-          ],
+              buildListTile(info: info, index: index),
+            ],
+          ),
         );
       },
+    );
+  }
+}
+
+class buildListTile extends StatelessWidget {
+  const buildListTile({super.key, required this.info, required this.index});
+
+  final List<InfoModel> info;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 5,
+      ), // 여백을 줄임
+      // minLeadingWidth: 10, // leading과 title 사이 간격 최소화
+      leading: CircleAvatar(
+        radius: 25, // 프로필 이미지 크기 줄임
+        backgroundImage: AssetImage(info[index].profileImage),
+      ),
+      title: Text(
+        info[index].title,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Row(
+        children: [
+          Text(info[index].nickname, style: TextStyle(color: Colors.grey)),
+          SizedBox(width: 8),
+          Text(info[index].views, style: TextStyle(color: Colors.grey)),
+          SizedBox(width: 8),
+          Text(info[index].date, style: TextStyle(color: Colors.grey)),
+        ],
+      ),
+      trailing: Icon(Icons.more_vert, color: Colors.white),
     );
   }
 }
